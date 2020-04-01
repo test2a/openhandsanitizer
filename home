@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Open Hand Sanitizer</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1 align='center'>Open Hand Sanitizer</h1>
+        <p class="table">
+		<tr>
+                    <td>Enter Quantity Of Hand Sanitizer You Want To Make (in ml)</td>
+					<td>
+                        <input type="number" id="amount" value='1'></td>
+                    <td></td>
+                </tr>
+		</p>
+        <table class="table table-bordered">
+		
+            <thead>
+                <tr>
+                    <th>Ingredients</th>
+                    <th>Strength</th>
+                    <th>How Much To Use</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+                <tr>
+                    <td>IsoPropyl Alcohol</td>
+                    <td><select id="list">
+                            <option value="0">
+                                select
+                            </option>
+							<option value=".75">
+                                99
+                            </option>
+                            <option value=".83">
+                                91
+                            </option>
+							<option value="55">
+                                70
+                            </option>
+							<option value="55">
+                                60
+                            </option>
+                        </select></td>
+                    <td><span id="ans"></span></td>
+                </tr>
+                <tr>
+                    <td>Hydrogen Peroxider</td>
+                    <td><select id="list2">
+                           <option value="0">
+                                Select
+                            </option>
+						   <option value=".04">
+                                3
+                            </option>
+                            <option value=".02">
+                                6
+                            </option>
+                            
+                        </select></td>
+                    <td><span id="ans2"></span></td>
+                </tr>
+                <tr>
+                    <td>Glycerine</td>
+                    <td></td>
+                    <td><span id="ans3"></span></td>
+                </tr>
+                <tr>
+                    <td>Water (to make it total)</td>
+                    <td></td>
+                    <td><span id="ans4"></span></td>
+                </tr>
+            </tbody>
+        </table>
+		<p align="justify">	We have designed this calculator based on  <a href="https://www.who.int/gpsc/5may/Guide_to_Local_Production.pdf">WHO </a> formulation because in this current pandemic when there is a serious lack of off-the-shelf hand sanitizers, we found that there was no easy way to get the calculations right because in stores we aren’t always able to get our hands on 99% isoproprl alcohol or exactly 3% hydrogen peroxide. The existing blogposts all either mention imperial “use 3/4 cups plus 5 teaspoons” and adjust accordingly or end up suggesting using non recommended formulations like using vodka instead of isopropyl alcohol and even 1/4 cup alcohol and 3/4 aloe vera gel. We are open sourcing this project on github and everyone is invited to help improve this tool.</br></br>
+
+We have made certain assumptions including the current default of 99%, 91%, 70% and 60% alcohol strength that are available easily in the market. Same for Hydrogen Peroxide.</br></br>
+
+We are not chemists. Anyone with expertise in this field should help us to make improvements in our formula if ours is not perfect.</br></br>
+
+As a final precaution, do your own research before confirming your values with our tool. This is a work-in-progress alpha release.</br></br>
+
+Final calculations are based on <a href="http://ataridogdaze.com/science/diy-hand-sanitizer.html">http://ataridogdaze.com/science/diy-hand-sanitizer.html</a></br></br>
+</P>
+		
+    </div>
+	</br>
+	
+
+</body>
+
+</html>
+
+<script>
+    function op1() {
+        a = parseFloat($("#list").val());
+        c = parseFloat($("#amount").val());
+		
+		if (a==.75){
+		ans1 = a * c;}
+		else if(a==.83){
+		ans1 = a * c;}
+		else if(a==55){
+		ans1 = c - a;}
+		else if(a==55){
+		ans1 = c - a;}
+		
+		
+        //ans1 = a * c;
+        $("#ans").html(ans1)
+        TOTAL();
+    }
+
+    function op2() {
+        a = parseFloat($("#list2").val());
+        c = parseFloat($("#amount").val());
+        ans2 = a * c;
+        $("#ans2").html(ans2)
+        TOTAL();
+    }
+
+    function op3() {
+        a = parseFloat($("#amount").val());
+        c = 0.015
+
+        ans3 = a * c;
+        $("#ans3").html(ans3)
+        op1();
+        op2();
+
+        TOTAL();
+    }
+
+    function TOTAL() {
+        an = parseFloat($("#amount").val()) - ans1 - ans2 - ans3;
+        $("#ans4").html(an)
+    }
+    $(document).ready(function() {
+        $("#list").on("change", function() {
+            op1();
+        });
+        $("#list2").on("change", function() {
+            op2();
+        });
+        $("#amount").on("input", function() {
+            op3();
+        });
+    });
+
+</script>
+
+
+<!--Label10.Text = a * .015-->
